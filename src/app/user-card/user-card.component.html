@@ -1,0 +1,14 @@
+<div class="user-card-container container">
+  <div class="user-container">
+    <div class="img-container">
+      <!-- <img src="https://cdn.discordapp.com/avatars/313010829790412800/57e7c5d16250f158d483b4c1869844b7.jpg"> -->
+      <img src="{{ avatar }}">
+    </div>
+    <div class="name-container">
+      <span>{{ name }}</span>
+    </div>
+  </div>
+  <div (click)="logout()" class="dropdown-container">
+    <span>LOGOUT</span>
+  </div>
+</div>

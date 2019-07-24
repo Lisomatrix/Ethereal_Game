@@ -1,0 +1,90 @@
+.user-card-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: 50px;
+  //   background-color: #3a3a3a9c;
+  padding: 15px;
+  border-radius: 0 0 0 1em;
+  display: flex;
+  padding-top: 5px;
+
+  &:hover {
+    .dropdown-container {
+      display: block !important;
+    }
+  }
+
+  .img-container {
+    margin-top: 4px;
+
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 15em;
+    }
+  }
+
+  .name-container {
+    color: white;
+    text-align: center;
+    margin-left: 18px;
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+}
+
+.flex {
+  display: flex;
+  position: absolute;
+  width: 100%;
+}
+
+.user-container {
+  height: 60px;
+  border-radius: 0 0 0 2em;
+  display: flex;
+}
+
+.blur-container {
+    border-radius: 0 0 0 1.5em !important;
+}
+
+.container {
+    background: rgba(255, 255, 255, .19);
+}
+
+.container:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 0 0 2em ;
+}
+
+.container::hover .dropdown-container {
+  display: block !important;
+}
+
+.dropdown-container {
+  cursor: pointer;
+  transition: all ease 0.5;
+  display: none;
+  position: absolute;
+  margin-top: 65px;
+  width: 100%;
+  right: 0;
+  height: 50px;
+  background-color: #0F0F0F;
+  border-radius: 10px 0px 0px 10px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  padding-top: 18px;
+}

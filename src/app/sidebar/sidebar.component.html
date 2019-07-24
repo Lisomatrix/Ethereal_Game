@@ -1,0 +1,56 @@
+<div class="{{ isSideBarOpen ? 'sidebar-container' : 'sidebar-container sidebar-close' }}">
+    <div (click)="toggleSidebar()" class="close-icon-container">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" height="24px">
+            <path style="line-height:normal;text-indent:0;text-align:start;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000;text-transform:none;block-progression:tb;isolation:auto;mix-blend-mode:normal" d="M 2 5 L 2 7 L 22 7 L 22 5 L 2 5 z M 2 11 L 2 13 L 22 13 L 22 11 L 2 11 z M 2 17 L 2 19 L 22 19 L 22 17 L 2 17 z" font-weight="400" font-family="sans-serif" white-space="normal" overflow="visible"/>
+        </svg>
+        
+    </div>
+    <div class="title-container">
+        <img class="title" src="https://cdn.discordapp.com/attachments/577127575374004226/594645804325666846/Logo4.png">
+    </div>
+
+    <div class="container player-container">
+        <span class="title">Player</span>
+        <div class="list">
+            <div class="flex xp">
+                <span>Level: {{ level }}</span>
+                <div class="progress-bar-container">
+                    <div [style]="progressLevel" class="filled"></div>
+                </div>
+                <!-- <progress max="100" value="{{ ( progressLevel - level ) * 100 }}"></progress> -->
+            </div>
+            <span><i class="darkmatter">Dark Matter:</i> {{ darkMatter }}</span>
+            <span><i class="stars">Stars: </i>{{ stars }}</span>
+        </div>
+    </div>
+
+    <div class="container ores-container">
+        <span class="title">Collection</span>
+        <div class="flex">
+            <div class="list">
+                <span><i class="iron">Iron:</i> {{ iron }}</span>
+                <span><i class="gold">Gold:</i> {{ gold }}</span>
+                <span><i class="ruby">Ruby:</i> {{ ruby }}</span>
+            </div>
+            <div class="list">
+                <span><i class="emerald">Emerald:</i> {{ emerald }}</span>
+                <span><i class="saphire">Saphire:</i> {{ saphire }}</span>
+                <span><i class="diamond">Diamond:</i> {{ diamond }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container stats-container">
+        <span class="title">Stats</span>
+        <div class="flex">
+            <div class="list">
+                <span><i>Attack:</i> {{ damage }}</span>
+            </div>
+            <div class="list">
+                <span>Stage: {{ stage }}</span>
+            </div>
+        </div>
+        <span class="pickaxe-span">Clicks: {{ clicks }}</span>
+        <span class="pickaxe-span">Pickaxe: {{ pickaxeName }}</span>
+    </div>
+</div>

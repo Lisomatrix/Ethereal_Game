@@ -1,0 +1,26 @@
+<div
+  class="{{ shopOpen ? 'shop-page-container' : 'shop-page-container closed' }}"
+>
+  <div class="tabs-container">
+    <div (click)="changeTab()" class="{{ isTab1Open ? 'tab active' : 'tab' }}">
+      <img src="./../../assets/ironpickaxe.png" />
+    </div>
+    <div (click)="changeTab()" class="{{ !isTab1Open ? 'tab active' : 'tab' }}">
+      <img src="./../../assets/barChart.png" />
+    </div>
+  </div>
+  <div class="items-container">
+    <div #pickaxe class="items-list">
+      <app-item-shop *ngFor="let item of pickaxes" [pickaxe]="item">
+      </app-item-shop>
+    </div>
+    <div #stats class="pickaxe-stats-upgrade-container">
+        <app-upgrade-shop [upgrade]="'attack'"></app-upgrade-shop>
+        <app-upgrade-shop [upgrade]="'speed'"></app-upgrade-shop>
+        <app-upgrade-shop [upgrade]="'dropChance'"></app-upgrade-shop>
+        <app-upgrade-shop [upgrade]="'dmRate'"></app-upgrade-shop>
+    </div>
+  </div>
+</div>
+<app-shop-button (click)="shopClicked()"></app-shop-button>
+<app-reset-button (click)="reset()" *ngIf="canReset"></app-reset-button>

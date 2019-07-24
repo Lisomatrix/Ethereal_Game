@@ -1,0 +1,97 @@
+.shop-page-container {
+  z-index: 5;
+  width: 100vw;
+  height: 255px;
+  display: flex;
+  flex-flow: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s;
+
+  .tabs-container {
+    display: flex;
+    height: 45px;
+
+    .tab {
+      cursor: pointer;
+      width: 45px;
+      text-align: center;
+      height: 45px;
+      border-radius: 10px 10px 0 0;
+      margin-left: 34px;
+      padding: 4px;
+      box-sizing: border-box;
+      background: #d7af22;
+
+      img {
+        padding-top: 4px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    .active {
+      background: #edc809;
+    }
+  }
+
+  .items-container {
+    height: 100%;
+    padding: 8px;
+    background: #edc809;
+    overflow: auto;
+
+    .items-list {
+      height: calc(100% - 16px);
+      background: #deb112;
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      width: fit-content;
+    }
+  }
+
+  .pickaxe-stats-upgrade-container {
+    height: calc(100% - 16px);
+    background: #deb112;
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+    width: fit-content;
+
+    .stats-column {
+        display: flex;
+        flex-flow: column;
+        
+        .stat-container {
+            display: flex;
+            padding: 4px;
+            margin-top: 40px;
+            margin-left: 12px;
+
+            .stat-text {
+                text-align: left;
+            }
+
+            .buy-upgrade-btn {
+                background: #4CA9C7;
+                border-radius: 10px;
+                text-align: center;
+                border: none;
+                width: 50px;
+                height: 22px;
+                color: #fff;
+                // margin-top: 2px;
+                margin-left: 4px;
+                padding: 2px;
+                cursor: pointer;
+            }
+        }
+    }
+  }
+}
+
+.closed {
+  margin-bottom: -255px;
+}

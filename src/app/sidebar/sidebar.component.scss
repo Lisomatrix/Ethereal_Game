@@ -1,0 +1,192 @@
+.sidebar-container {
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 350px;
+  max-width: 350px;
+  background-color: #0B164B;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr;
+  grid-gap: 18px;
+  box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(.175, .885, .32, 1.275);
+  font-family: 'arcadeclassicregular';
+  position: relative;
+
+  .close-icon-container {
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    top: 60px;
+    background-color: #0B164B;
+    right: -25px;
+    width: 60px;
+    height: 60px;
+    border-radius: 15em;
+    font-size: 20px;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px transparent;
+    font-size: 45px;
+    box-sizing: border-box;
+    padding-bottom: 5px;
+    text-align: center;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .title-container {
+    height: 74px;
+    width: 350px;
+    text-align: center;
+    padding-top: 8px;
+
+    .title {
+      font-size: 20px;
+      width: 320px;
+      color: #ffffff;
+    }
+  }
+
+  .container {
+    margin-left: 11px;
+    width: 325px;
+    height: 90%;
+    background: #0A1F81;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    color: #fff;
+
+    .title {
+      margin-left: 18px;
+      margin-top: -8px;
+    }
+
+    .list {
+      display: flex;
+      flex-flow: column;
+      padding: 18px;
+      // width: 100%;
+      padding-right: 0;
+
+      span {
+        display: block;
+        font-size: 20px;
+        line-height: 38px;
+
+        i {
+          font-style: normal;
+        }
+      }
+    }
+
+    .pickaxe-span {
+      display: block;
+      font-size: 20px;
+      line-height: 38px;
+      width: 100%;
+      padding-left: 18px;
+    }
+  }
+
+  .level-container {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .ores-container {
+    display: flex;
+  }
+
+  .stats-container {
+    display: flex;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.xp {
+
+  .progress-bar-container {
+    margin-left: 45px;
+    background-color: #041142;
+    width: 50%;
+    height: 20px;
+    margin-top: 12px;
+    border-radius: 7px;
+
+    .filled {
+      transition: all 0.3s;
+      width: 100%;
+      height: 100%;
+      border-radius: 7px;
+      background: repeating-linear-gradient(45deg,
+          #606dbc,
+          #606dbc 10px,
+          #465298 10px,
+          #465298 20px);
+    }
+  }
+}
+
+.darkmatter {
+  color: rgb(168, 11, 142);
+}
+
+.stars {
+  color: rgb(255, 238, 0);
+}
+
+.iron {
+  color: rgb(178, 182, 178);
+}
+
+.gold {
+  color: rgb(226, 197, 32);
+}
+
+.ruby {
+  color: rgb(207, 19, 19);
+}
+
+.emerald {
+  color: rgb(46, 209, 46);
+}
+
+.saphire {
+  color: rgb(58, 46, 226);
+}
+
+.diamond {
+  color: rgb(30, 187, 187);
+}
+
+.sidebar-close {
+  margin-left: -350px;
+
+  .close-icon-container {
+    right: -70px !important;
+    top: 5px;
+
+    .icon {
+      fill: #fff;
+      width: 35px;
+      height: 35px;
+      margin-top: 12px;
+    }
+  }
+}
+
+svg.icon {
+  fill: #fff;
+  width: 35px;
+  height: 35px;
+  margin-top: 12px;
+}

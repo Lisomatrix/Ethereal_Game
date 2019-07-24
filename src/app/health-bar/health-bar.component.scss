@@ -1,0 +1,45 @@
+.health-bar-container {
+  transition: all 0.2s;
+  position: absolute;
+  left: calc(50% + 50px);
+  bottom: 60px;
+  width: 200px;
+  height: 40px;
+  border: 5px solid lightgray;
+  display: flex;
+  border-radius: 1.5em;
+  overflow: hidden;
+
+  .hp-text {
+    left: 50%;
+    z-index: 3;
+    font-weight: bold;
+    color: #fff;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 10px;
+    font-family: 'arcadeclassicregular';
+  }
+
+  .fill-bar {
+      border-radius: 5px;
+    width: 80%;
+    height: 40px;
+    background-color: red;
+    position: absolute;
+    transition: all 0.3s;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+
+  }
+
+  .empty-bar {
+    // width: 20%;
+    height: 40px;
+    background-color: gray;
+    width: -webkit-fill-available;
+  }
+}

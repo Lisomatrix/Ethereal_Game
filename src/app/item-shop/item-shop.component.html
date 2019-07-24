@@ -1,0 +1,8 @@
+<div class="item-container">
+    <div class="item-img-container">
+        <img *ngIf="image" src="./../../assets/{{ image }}" >
+    </div>
+    <div (click)="buy()" class="item-price-tag-container">
+        <span>{{ pickaxe.owned ? "Use" : pickaxe.price.stars }}</span>
+    </div>
+</div>

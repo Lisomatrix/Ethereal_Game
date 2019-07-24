@@ -1,0 +1,26 @@
+.reset-btn-container {
+    z-index: 5;
+    position: absolute;
+    right: 20px;
+    bottom: 180px;
+    height: 80px;
+    width: 80px;
+    border-radius: 15em;
+    padding-top: 13px;
+    border: 3px solid gray;
+    background-color: rgb(189, 187, 187);
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.3s;
+
+    &:hover {
+        transform: scale(1.2);
+        background-color: lightgray;
+    }
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+}
