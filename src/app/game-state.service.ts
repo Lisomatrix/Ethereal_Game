@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rxjs";
 import { StoreService } from "./store.service";
 import * as PIXISound from "pixi-sound";
 import { PickaxeService } from "./pickaxe.service";
+import { map } from 'rxjs/operators';
 
 export interface IUpgradePurchase {
   success: boolean;
@@ -133,7 +134,7 @@ export class GameStateService {
   }
 
   public getStateFromServer() {
-    this.store.getState().subscribe((state: GameState) => {
+    return this.store.getState().pipe(map((state: GameState) => {
 
       if (state.pickaxeId) {
         this.pickaxeService.setCurrentPickaxe(
@@ -163,7 +164,7 @@ export class GameStateService {
       this.maxAsteroidHP.next(100 * state.stage * 2);
 
       this.handleUpdatePickaxes(this.pickaxes.getValue());
-    });
+    }));
   }
 
   private getPickaxesFromServer() {
@@ -287,7 +288,7 @@ export class GameStateService {
           }
         });
       }
-      
+
       this.pickaxeService.setCurrentPickaxe(pickaxe);
 
       this.gameState.next(state);
@@ -354,7 +355,7 @@ export class GameStateService {
 
   public resetState() {
     this.store.reset().subscribe(state => {
-      this.getStateFromServer();
+      this.getStateFromServer().subscribe();
     });
   }
 

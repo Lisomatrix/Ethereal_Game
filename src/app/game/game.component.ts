@@ -24,8 +24,10 @@ export class GameComponent {
   private loader = new Loader();
   private game: Game;
 
+  private isLoading = true;
+
   constructor(private gameState: GameStateService, private router: Router, private discordService: DiscordOAuth2Service, private pickaxeService: PickaxeService, private route: ActivatedRoute) {
-    
+
     this.route.queryParamMap.subscribe(querys => {
       if (querys.get('token')) {
         localStorage.setItem('discord-token', querys.get('token'));
@@ -53,7 +55,7 @@ export class GameComponent {
 
     window.onresize = (event: UIEvent) => {
       this.game.resize(window.innerWidth - 300, window.innerHeight);
-    }
+    };
 
     window.addEventListener('sidebar', (event: CustomEvent<any>) => {
       this.sidebarIsOpen = event.detail;
@@ -73,11 +75,6 @@ export class GameComponent {
       this.userInfo = userInfo;
     }
 
-    this.gameState.getStateFromServer();
-  }
-
-  @HostListener('window:unload', ['$event'])
-  unloadHandler(event) {
-    // TODO: EXECUTE SAVE STATE
+    this.gameState.getStateFromServer().subscribe(() => this.isLoading = false);
   }
 }

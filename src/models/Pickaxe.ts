@@ -36,24 +36,23 @@ export class Pickaxe extends Entity {
         this.gameState = state;
 
         this.gameState.getState()
-        .subscribe((state) => {
-            const pickaxe = this.gameState.getPickaxeById(state.pickaxeId);
+            .subscribe((state) => {
+                const pickaxe = this.gameState.getPickaxeById(state.pickaxeId);
 
-            if (pickaxe) {
+                if (pickaxe) {
 
-                let speed = pickaxe.clickSpeed;
+                    let speed = pickaxe.clickSpeed;
 
-                if (state.upgrades) {
-                    speed -= state.upgrades.speed;
+                    if (state.upgrades) {
+                        speed -= state.upgrades.speed;
+                    }
+
+                    this.cooldown = speed / 0.05;
                 }
-
-                this.cooldown = speed / 0.05;
-            }
-        });
+            });
     }
 
     public changePickaxe(pickaxe: IPickaxe) {
-        
         this.textureName = pickaxe.name;
         this.soundName = pickaxe.sound;
 
@@ -65,15 +64,16 @@ export class Pickaxe extends Entity {
         this.loader = loader;
         this.sprite = new Sprite(loader.resources[this.textureName].texture);
         this.createEmitter(loader.resources['particle'].texture);
+        this.sprite.zIndex = 10;
     }
 
     public tick(delta: number): void {
 
-        if (!this.sprite)
+        if (!this.sprite) {
             return;
+        }
 
         this.emitter.update(delta / 60.0);
-        // this.emitter.update((this.now - this.elapsed) * 0.001);
 
         this.elapsed += delta;
 
@@ -84,7 +84,7 @@ export class Pickaxe extends Entity {
         }
 
         if (this.lastTime) {
-            
+
             if (this.lastOneSecondTick >= 60) {
                 this.lastOneSecondTick = 0;
             }

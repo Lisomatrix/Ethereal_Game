@@ -23,4 +23,17 @@
   </div>
 </div>
 <app-shop-button (click)="shopClicked()"></app-shop-button>
-<app-reset-button (click)="reset()" *ngIf="canReset"></app-reset-button>
+<app-reset-button (click)="showPop()"  *ngIf="canReset"></app-reset-button>
+<div *ngIf="showPopup" class="popup-container">
+  <div class="message-container">
+    <span>You will lose all your materials in order to receive <span class="darkmatter">Dark Matter</span></span>
+  </div>
+  <div class="buttons-container">
+    <div (click)="reset()" class="confirm-btn">
+      Confirm
+    </div>
+    <div (click)="showPop()" class="cancel-btn">
+      Cancel
+    </div>
+  </div>
+</div>

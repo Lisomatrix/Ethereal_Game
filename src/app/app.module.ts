@@ -14,6 +14,7 @@ import { GameComponent } from './game/game.component';
 import { ItemShopComponent } from './item-shop/item-shop.component';
 import { ResetButtonComponent } from './reset-button/reset-button.component';
 import { UpgradeShopComponent } from './upgrade-shop/upgrade-shop.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpgradeShopComponent } from './upgrade-shop/upgrade-shop.component';
     GameComponent,
     ItemShopComponent,
     ResetButtonComponent,
-    UpgradeShopComponent
+    UpgradeShopComponent,
+    LoadingComponent
   ],
   imports: [
     HttpClientModule,

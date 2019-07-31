@@ -10,10 +10,32 @@
         height: 150px;
         border-radius: 10px;
         background: #E3D33F;
+        transition: all 0.5s;
+        position: relative;
+        cursor: pointer;
 
         img {
             width: 100%;
             height: 100%;
+        }
+
+        .materials-container {
+            display: none;
+            position: absolute;
+            top: 0;
+            flex-flow: column;
+            padding: 8px;
+            line-height: 18px;
+        }
+    }
+
+    .item-img-container:hover {
+        img {
+            filter: blur(5px);
+        }
+
+        .materials-container {
+            display: flex !important;
         }
     }
 
@@ -23,8 +45,9 @@
         border-radius: 10px;
         width: 150px;
         color: #fff;
-        height: auto;
+        height: 16px;
         text-align: center;
         cursor: pointer;
     }
+
 }

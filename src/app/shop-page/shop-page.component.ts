@@ -27,6 +27,8 @@ export class ShopPageComponent implements OnInit {
 
   private canReset = false;
 
+  private showPopup = false;
+
   constructor(private storeService: StoreService, private gameStateService: GameStateService) {
     this.gameStateService.getPickaxes().subscribe(newPickaxes => {
       this.pickaxes = newPickaxes;
@@ -48,12 +50,17 @@ export class ShopPageComponent implements OnInit {
     this.changeTab();
   }
 
+  private showPop() {
+    this.showPopup = !this.showPopup;
+  }
+
   private shopClicked() {
     this.shopOpen = !this.shopOpen;
   }
 
   private reset() {
     this.gameStateService.resetState();
+    this.showPopup = !this.showPopup;
   }
 
   private changeTab() {
@@ -78,7 +85,7 @@ export class ShopPageComponent implements OnInit {
       stars = state.lastSavedState.stars;
     }
 
-    let cost = 500; 
+    let cost = 500;
 
     switch (upgrade) {
       case 'attack': {
@@ -86,25 +93,25 @@ export class ShopPageComponent implements OnInit {
         cost += state.upgrades.attack * 250;
         break;
       }
-  
+
       case 'speed': {
         state.upgrades.speed++;
         cost += state.upgrades.speed * 250;
         break;
       }
-  
+
       case 'dropChance': {
         state.upgrades.dropChance += 0.25;
         cost = (state.upgrades.dropChance * 4) * 250;
         break;
       }
-  
+
       case 'dmRate': {
         state.upgrades.dmRate += 5;
         cost = (state.upgrades.dmRate / 5) * 250;
         break;
       }
-  
+
       default: {
         state.upgrades.speed++;
         cost = state.upgrades.speed * 250;

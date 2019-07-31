@@ -46,7 +46,7 @@ export class ItemShopComponent implements OnInit {
     }
   }
 
-  buy() {
+  buy(isStars: boolean) {
     if (!this.pickaxe) return;
 
     if (this.pickaxe.owned) {
@@ -54,11 +54,11 @@ export class ItemShopComponent implements OnInit {
         this.pickaxeService.setCurrentPickaxe(this.pickaxe);
       }
     } else {
-      if (this.canBuyWithMaterials()) {
+      if (this.canBuyWithMaterials() && !isStars) {
         this.storeService.buyPickaxeWithResources(this.id).subscribe(result => {
           this.stateService.handlePurchase(result as IPickaxePurchase);
         });
-      } else if (this.canBuyWithStars()) {
+      } else if (this.canBuyWithStars() && isStars) {
         this.storeService.buyPickaxe(this.id).subscribe(result => {
           this.stateService.handlePurchase(result as IPickaxePurchase);
         });
@@ -71,11 +71,14 @@ export class ItemShopComponent implements OnInit {
   private canBuyWithMaterials() {
     const state = this.stateService.getStateValue();
 
-    var canBuy = true;
+    let canBuy = true;
 
     Object.entries(this.pickaxe.price).forEach(([key, value]) => {
 
-      if (key === 'stars') return;
+      if (key === 'stars') {
+        return;
+      }
+
       if (state[key] < value) {
         canBuy = false;
       }

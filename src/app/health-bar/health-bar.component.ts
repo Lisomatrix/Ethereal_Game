@@ -36,7 +36,7 @@ export class HealthBarComponent implements OnInit {
     });
 
     this.gameStateService.getMaxAsteroidHP().subscribe(maxHP => {
-      this.maxHP = maxHP
+      this.maxHP = maxHP;
       this.updateHPBar();
     });
   }

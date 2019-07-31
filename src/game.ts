@@ -23,6 +23,8 @@ export class Game {
     private gameState: GameStateService;
     private pickaxeService: PickaxeService;
 
+    private oldAsteroidTexture;
+
     constructor(width: number, height: number, backgroundColor = 0xffffff, fillPage = false) {
 
         this.app = new Application({
@@ -39,7 +41,7 @@ export class Game {
         document.body.appendChild(this.app.view);
         this.app.stage.interactive = true;
 
-        this.app.stage.on('mouseover', (x) => {});
+        this.app.stage.on('mouseover', (x) => { });
 
         this.app.view.style.display = 'block';
         this.app.renderer.autoResize = true;
@@ -77,33 +79,39 @@ export class Game {
     }
 
     private loadTextures() {
-        var loader = this.loader;
+        let loader = this.loader;
         this.gameState.getPickaxes()
-        .subscribe(pickaxes => {
+            .subscribe(pickaxes => {
 
-            
 
-            // const pickaxesLoad = [];
 
-            // for (var i = 0, n = pickaxes.length; i < n; i++) {
-            //     pickaxesLoad.push([pickaxes[i].name, '../assets/' + pickaxes[i].image]);
-            // }
+                // const pickaxesLoad = [];
 
-            // pickaxesLoad.push(['asteroid', '../assets/asteroid.png']);
-            // pickaxesLoad.push(['particle', '../assets/particle.png']);
+                // for (var i = 0, n = pickaxes.length; i < n; i++) {
+                //     pickaxesLoad.push([pickaxes[i].name, '../assets/' + pickaxes[i].image]);
+                // }
 
-            // this.loader.add(pickaxesLoad).load(() => this.loadTexturesEnd);
-            // for (var i = 0, n = pickaxes.length; i < n; i++) {
-            //     if (!loader.resources[pickaxes[i].name]) {
-            //         loader = loader.add(pickaxes[i].name, '../assets/' + pickaxes[i].image);
-            //     }
-            // }
-        });
+                // pickaxesLoad.push(['asteroid', '../assets/asteroid.png']);
+                // pickaxesLoad.push(['particle', '../assets/particle.png']);
 
-        
+                // this.loader.add(pickaxesLoad).load(() => this.loadTexturesEnd);
+                // for (var i = 0, n = pickaxes.length; i < n; i++) {
+                //     if (!loader.resources[pickaxes[i].name]) {
+                //         loader = loader.add(pickaxes[i].name, '../assets/' + pickaxes[i].image);
+                //     }
+                // }
+            });
 
         loader
             .add('asteroid', '../assets/asteroid.png')
+            .add('brokenAsteroid', '../assets/brokenAsteroid.png')
+            .add('brokenAsteroid1', '../assets/brokenAsteroid1.png')
+            .add('brokenAsteroid2', '../assets/brokenAsteroid2.png')
+            .add('brokenAsteroid3', '../assets/brokenAsteroid3.png')
+            .add('brokenAsteroid4', '../assets/brokenAsteroid4.png')
+            .add('brokenAsteroid5', '../assets/brokenAsteroid5.png')
+            .add('brokenAsteroid6', '../assets/brokenAsteroid6.png')
+            .add('brokenAsteroid7', '../assets/brokenAsteroid7.png')
             .add('Iron Pickaxe', '../assets/ironpickaxe.png')
             .add('Gold Pickaxe', '../assets/goldPickaxe.png')
             .add('Dark Matter Pickaxe', '../assets/DMPickaxe.png')
@@ -114,13 +122,15 @@ export class Game {
     }
 
     private loadTexturesEnd() {
-        // this.player = new Player(this.keybordHelper);
-        // this.player.loadTexture(this.loader);
-        // this.app.stage.addChild(this.player.getSprite());
-
         this.asteroid = new Asteroid();
         this.asteroid.setGameState(this.gameState);
         this.asteroid.loadTexture(this.loader);
+
+        if (!this.oldAsteroidTexture) {
+            this.oldAsteroidTexture = this.asteroid.getSprite();
+            this.app.stage.addChild(this.oldAsteroidTexture);
+        }
+
         this.app.stage.addChild(this.asteroid.getSprite());
 
         this.pickaxe = new Pickaxe();
@@ -129,12 +139,26 @@ export class Game {
         this.app.stage.addChild(this.pickaxe.getSprite());
 
         this.pickaxeService.getCurrentPickaxe().subscribe(newPickaxe => {
-            
             if (newPickaxe) {
-            
                 this.app.stage.removeChild(this.pickaxe.getSprite());
                 this.pickaxe.changePickaxe(newPickaxe);
                 this.app.stage.addChild(this.pickaxe.getSprite());
+            }
+        });
+
+        this.gameState.getState().subscribe(state => {
+            if (state && this.app.stage) {
+                if (this.oldAsteroidTexture) {
+                    this.app.stage.removeChild(this.oldAsteroidTexture);
+                }
+
+                this.oldAsteroidTexture = this.asteroid.getTexture();
+
+                if (this.oldAsteroidTexture) {
+                    this.oldAsteroidTexture.zIndex = -1;
+                    this.app.stage.addChild(this.oldAsteroidTexture);
+                }
+
             }
         });
 
@@ -148,11 +172,11 @@ export class Game {
                 this.asteroid.resize(this.app.view.width, this.app.view.height);
             }
 
-            // this.player.tick(delta);
             this.asteroid.tick(delta);
 
             const position = this.app.renderer.plugins.interaction.mouse.getLocalPosition(this.app.stage);
             this.pickaxe.setPosition(position.x, position.y);
+            this.app.stage.addChild(this.pickaxe.sprite);
 
             this.pickaxe.tick(delta);
         });
