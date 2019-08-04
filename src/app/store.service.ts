@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const URL = 'http://localhost:3000';
+const URL = 'https://astro-clicker.herokuapp.com';
+
 
 @Injectable({
   providedIn: 'root'

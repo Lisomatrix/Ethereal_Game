@@ -7,6 +7,11 @@ import { StoreService } from '../store.service';
 import { GameState, GameStateService } from '../game-state.service';
 import { PickaxeService } from '../pickaxe.service';
 
+interface IPosition {
+  x: number;
+  y: number;
+}
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -24,15 +29,18 @@ export class GameComponent {
   private loader = new Loader();
   private game: Game;
 
-  private isLoading = true;
+  isLoading = true;
 
-  constructor(private gameState: GameStateService, private router: Router, private discordService: DiscordOAuth2Service, private pickaxeService: PickaxeService, private route: ActivatedRoute) {
+  private lastClicks = new Array<IPosition>();
+
+  constructor(private gameState: GameStateService, private router: Router, private discordService: DiscordOAuth2Service,
+              private pickaxeService: PickaxeService, private route: ActivatedRoute) {
 
     this.route.queryParamMap.subscribe(querys => {
       if (querys.get('token')) {
         localStorage.setItem('discord-token', querys.get('token'));
 
-        // this.router.navigate([], { queryParams: { token: null }, queryParamsHandling: 'merge' });
+        this.router.navigate([], { queryParams: { token: null }, queryParamsHandling: 'merge' });
 
         this.discordService.getUserInfo().subscribe(userInfo => this.handleGetUserInfo(userInfo));
       } else {
@@ -66,6 +74,8 @@ export class GameComponent {
         this.game.resize(window.innerWidth, window.innerHeight);
       }
     });
+
+    this.trackMouseMovement();
   }
 
   private handleGetUserInfo(userInfo: DiscordInfo) {
@@ -76,5 +86,29 @@ export class GameComponent {
     }
 
     this.gameState.getStateFromServer().subscribe(() => this.isLoading = false);
+  }
+
+  private trackMouseMovement() {
+    window.onmspointerdown = (event: MouseEvent) => {
+      this.lastClicks.push({ x: event.x, y: event.y });
+
+      if (this.lastClicks.length > 500) {
+
+        let differentPos = false;
+
+        for (let i = 0, n = this.lastClicks.length; i < n; i++) {
+          if (this.lastClicks[i].x !== event.x || this.lastClicks[i].y !== event.y) {
+            differentPos = true;
+            break;
+          }
+        }
+
+        if (!differentPos) {
+          alert('Dear player your click precision is really good, are sure you are not a bot?');
+        }
+
+        this.lastClicks = new Array<IPosition>();
+      }
+    };
   }
 }

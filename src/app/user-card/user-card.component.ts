@@ -8,8 +8,8 @@ import { DiscordOAuth2Service } from '../discord-oauth2.service';
 })
 export class UserCardComponent implements OnInit {
 
-  private avatar: string;
-  private name: string;
+  avatar: string;
+  name: string;
 
   constructor(private discordService: DiscordOAuth2Service) { }
 
@@ -17,7 +17,7 @@ export class UserCardComponent implements OnInit {
     this.discordService.getUserAvatar().subscribe(uri => {
       this.avatar = uri;
     });
-    
+
     this.discordService.getUserInfoLocal().subscribe(user => {
       this.name = user.username;
     });
@@ -26,7 +26,7 @@ export class UserCardComponent implements OnInit {
     // });
   }
 
-  private logout() {
+  logout() {
     this.discordService.revokeToken();
   }
 }

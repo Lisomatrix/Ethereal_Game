@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DiscordOAuth2Service } from '../discord-oauth2.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,9 +9,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('discord-token');
+
+    if (token) {
+      this.router.navigateByUrl('/game');
+    }
   }
 }

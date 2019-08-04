@@ -2,7 +2,7 @@ import { Entity } from './Entity';
 import { Texture, Sprite, IPoint, Loader } from 'pixi.js';
 // import {  } from 'pixi-sound';
 import * as PIXISound from 'pixi-sound';
-import { GameStateService } from 'src/app/game-state.service';
+import { GameStateService, GameState } from 'src/app/game-state.service';
 
 
 export class Asteroid extends Entity {
@@ -55,7 +55,7 @@ export class Asteroid extends Entity {
         this.gameState.getCurrentAsteroidHP().subscribe(hp => this.currentHP = hp),
 
             this.gameState.getState()
-                .subscribe((state) => {
+                .subscribe((state: GameState) => {
                     const pickaxe = this.gameState.getPickaxeById(state.pickaxeId);
 
                     if (pickaxe) {
@@ -63,7 +63,7 @@ export class Asteroid extends Entity {
                         let speed = pickaxe.clickSpeed;
 
                         if (state.upgrades) {
-                            speed -= state.upgrades.speed;
+                            speed -= (0.10 * state.upgrades.speed);
                         }
 
                         this.cooldown = speed / 0.05;
@@ -71,7 +71,7 @@ export class Asteroid extends Entity {
                 });
     }
 
-    public resize(width, height) {
+    public resize(width: number, height: number) {
         if (this.sprites[this.textureId]) {
             this.sprites[this.textureId].position.x = width / 2;
             this.sprites[this.textureId].position.y = height / 2;

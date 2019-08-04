@@ -8,12 +8,12 @@ import { StoreService } from "../store.service";
   styleUrls: ["./upgrade-shop.component.scss"]
 })
 export class UpgradeShopComponent implements OnInit {
-  private price: number;
+  price: number;
 
-  private name: string;
+  name: string;
 
   @Input("upgrade")
-  private upgradeId: string;
+  upgradeId: string;
 
   constructor(
     private storeService: StoreService,
@@ -47,26 +47,26 @@ export class UpgradeShopComponent implements OnInit {
       if (state.upgrades) {
         const val = state.upgrades[this.upgradeId];
 
-        this.price = 500;
+        this.price = 250;
 
         switch (this.upgradeId) {
           case "attack": {
-            this.price += 250 * val;
+            this.price += (250 * (val / 5));
             break;
           }
 
           case "speed": {
-            this.price += 250 * val;
+            this.price += (250 * val);
             break;
           }
 
           case "dropChance": {
-            this.price += 250 * (val * 4);
+            this.price += (250 * (val * 4));
             break;
           }
 
           case "dmRate": {
-            this.price += 250 * (val / 5);
+            this.price += (250 * (val / 5));
             break;
           }
 
@@ -76,7 +76,7 @@ export class UpgradeShopComponent implements OnInit {
     });
   }
 
-  private upgradeStat() {
+  upgradeStat() {
 
     const state = this.gameStateService.getStateValue();
 
@@ -86,38 +86,31 @@ export class UpgradeShopComponent implements OnInit {
       stars = state.lastSavedState.stars;
     }
 
-    let cost = 500;
+    let cost = 250;
 
     switch (this.upgradeId) {
       case "attack": {
-        state.upgrades.attack++;
-        cost += state.upgrades.attack * 250;
+        cost += ((state.upgrades.attack / 5) * 250);
         break;
       }
 
       case "speed": {
-        state.upgrades.speed++;
-        cost += state.upgrades.speed * 250;
+        cost += (state.upgrades.speed * 250);
         break;
       }
 
       case "dropChance": {
-        state.upgrades.dropChance += 0.25;
-        cost = state.upgrades.dropChance * 4 * 250;
+        cost = (state.upgrades.dropChance * 4 * 250);
         break;
       }
 
       case "dmRate": {
-        state.upgrades.dmRate += 5;
-        cost = (state.upgrades.dmRate / 5) * 250;
+        // state.upgrades.dmRate += 5;
+        cost = ((state.upgrades.dmRate / 5) * 250);
         break;
       }
 
-      default: {
-        state.upgrades.speed++;
-        cost = state.upgrades.speed * 250;
-        break;
-      }
+      default:
     }
 
     if (stars > cost) {
@@ -128,6 +121,7 @@ export class UpgradeShopComponent implements OnInit {
             result as IUpgradePurchase
           )
         );
+
     } else {
       alert("Not enough stars");
     }

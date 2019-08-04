@@ -1,3 +1,17 @@
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .closed {
+    overflow: hidden !important;
+    display: none !important;
+  }
+
+  .shop-page-container {
+    .pickaxe-stats-upgrade-container {
+      width: fit-content !important;
+    }
+
+  }
+}
+
 .shop-page-container {
   z-index: 5;
   width: 100vw;
@@ -49,6 +63,7 @@
       padding: 8px;
       display: flex;
       width: calc(100% - 16px);
+      min-width: fit-content;
     }
   }
 
@@ -65,7 +80,7 @@
     .stats-column {
         display: flex;
         flex-flow: column;
-        
+
         .stat-container {
             display: flex;
             padding: 4px;
@@ -152,7 +167,7 @@
 @keyframes show {
   0% {
     transform: scale(0);
-  }  
+  }
 
   100% {
     transform: scale(1)

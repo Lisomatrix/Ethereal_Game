@@ -44,7 +44,7 @@ export class Pickaxe extends Entity {
                     let speed = pickaxe.clickSpeed;
 
                     if (state.upgrades) {
-                        speed -= state.upgrades.speed;
+                        speed -= (0.10 * state.upgrades.speed);
                     }
 
                     this.cooldown = speed / 0.05;
@@ -131,13 +131,30 @@ export class Pickaxe extends Entity {
             // this.sprite.anchor.x = 0.7;
             // this.sprite.anchor.y = 0.3;
 
-            this.sprite.anchor.x = 0.2;
-            this.sprite.anchor.y = 0.8;
+            if (this.textureName.startsWith('Scythe') || this.textureName.endsWith('Scythe')) {
+
+                this.sprite.anchor.y = 0.5;     /* 0 = top, 0.5 = center, 1 = bottom */
+                this.sprite.anchor.x = 0.5;
+                this.sprite.scale.y *= -1;    /* flip vertically */
+                this.sprite.scale.x *= 5;
+
+                // this.sprite.scale.x = -.5;
+                // this.sprite.scale.y = 1;
+
+                // this.sprite.anchor.x = 0.2;
+                // this.sprite.anchor.y = 0.75;
+
+            } else {
+                this.sprite.anchor.x = 0.2;
+                this.sprite.anchor.y = 0.8;
+            }
 
             window.onmousedown = null;
 
             window.onmousedown = (event: MouseEvent) => {
-                if (this.clickCdStart) return;
+                if (this.clickCdStart) {
+                    return;
+                }
 
                 this.clickCdStart = true;
                 this.clicked = true;

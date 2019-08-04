@@ -62,8 +62,14 @@ export class Game {
     }
 
     public resize(width, height) {
-        this.app.renderer.resize(width, height);
-        this.asteroid.resize(width, height);
+
+
+        if (window.outerWidth < 1000) {
+
+        } else {
+            this.app.renderer.resize(width, height);
+            this.asteroid.resize(width, height);
+        }
     }
 
     public start() {
@@ -80,27 +86,6 @@ export class Game {
 
     private loadTextures() {
         let loader = this.loader;
-        this.gameState.getPickaxes()
-            .subscribe(pickaxes => {
-
-
-
-                // const pickaxesLoad = [];
-
-                // for (var i = 0, n = pickaxes.length; i < n; i++) {
-                //     pickaxesLoad.push([pickaxes[i].name, '../assets/' + pickaxes[i].image]);
-                // }
-
-                // pickaxesLoad.push(['asteroid', '../assets/asteroid.png']);
-                // pickaxesLoad.push(['particle', '../assets/particle.png']);
-
-                // this.loader.add(pickaxesLoad).load(() => this.loadTexturesEnd);
-                // for (var i = 0, n = pickaxes.length; i < n; i++) {
-                //     if (!loader.resources[pickaxes[i].name]) {
-                //         loader = loader.add(pickaxes[i].name, '../assets/' + pickaxes[i].image);
-                //     }
-                // }
-            });
 
         loader
             .add('asteroid', '../assets/asteroid.png')
@@ -116,6 +101,13 @@ export class Game {
             .add('Gold Pickaxe', '../assets/goldPickaxe.png')
             .add('Dark Matter Pickaxe', '../assets/DMPickaxe.png')
             .add('Rainbow Pickaxe', '../assets/rainbowPickaxe.png')
+            .add('Ruby Pickaxe', '../assets/RubyPickaxe.png')
+            .add('Sapphire Pickaxe', '../assets/SaphirePickaxe.png')
+            .add('Emerald Pickaxe', '../assets/EmeraldPickaxe.png')
+            .add('Fire Pickaxe', '../assets/FirePickaxe.png')
+            .add('Diamond Pickaxe', '../assets/DiamondPickaxe.png')
+            // .add('Scythe', '../assets/Scythe.png')
+            // .add('Gold Scythe', '../assets/GoldScythe.png')
             .add('particle', '../assets/particle.png')
             // .add('asteroid_hit', '../assets/asteroid_hit.mp3')
             .load(() => this.loadTexturesEnd());

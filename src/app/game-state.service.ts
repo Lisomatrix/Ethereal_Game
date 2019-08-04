@@ -9,6 +9,7 @@ export interface IUpgradePurchase {
   success: boolean;
   message: string;
   upgrade: string;
+  stars: number;
 }
 
 export interface IPickaxePurchase {
@@ -129,7 +130,7 @@ export class GameStateService {
       // Chrome requires returnValue to be set
       event.returnValue = "";
 
-      this.saveCurrentState().subscribe(x => {});
+      this.saveCurrentState().subscribe(x => { });
     };
   }
 
@@ -222,10 +223,20 @@ export class GameStateService {
 
     currentGameState.clicks++;
 
-    const newAsteroidHPValue =
-      this.currentAsteroidHP.getValue() -
-      (Math.floor(Math.random() * this.currentPickaxe.dmg) +
-        this.currentPickaxe.constantDmg);
+    // const newAsteroidHPValue =
+    //   this.currentAsteroidHP.getValue() -
+    //   (Math.floor(Math.random() * this.currentPickaxe.dmg) +
+    //     this.currentPickaxe.constantDmg);
+
+
+    let constantDmg = this.currentPickaxe.constantDmg;
+
+    if (currentGameState.upgrades && currentGameState.upgrades.attack) {
+      constantDmg += currentGameState.upgrades.attack;
+    }
+
+    const newAsteroidHPValue = this.currentAsteroidHP.getValue() - (Math.floor(Math.random()
+      * (this.currentPickaxe.dmg + constantDmg)) + constantDmg);
 
     if (newAsteroidHPValue <= 0) {
       currentGameState.stage++;
@@ -275,7 +286,9 @@ export class GameStateService {
         state.stars -= pickaxe.price.stars;
       } else {
         Object.entries(pickaxe.price).forEach(([key, value]) => {
-          if (key === "stars") return;
+          if (key === 'stars') {
+            return;
+          }
 
           if (state[key]) {
             state[key] -= value;
@@ -288,7 +301,6 @@ export class GameStateService {
           }
         });
       }
-
       this.pickaxeService.setCurrentPickaxe(pickaxe);
 
       this.gameState.next(state);
@@ -309,29 +321,29 @@ export class GameStateService {
 
       switch (result.upgrade) {
         case 'attack': {
-          state.upgrades.attack++;
-          upgradeNumber = state.upgrades.attack;
+          state.upgrades.attack += 5;
+          upgradeNumber = state.upgrades.attack / 5;
           break;
         }
-    
+
         case 'speed': {
           state.upgrades.speed++;
           upgradeNumber = state.upgrades.speed;
           break;
         }
-    
+
         case 'dropChance': {
           state.upgrades.dropChance += 0.25;
           upgradeNumber = state.upgrades.dropChance * 4;
           break;
         }
-    
+
         case 'dmRate': {
           state.upgrades.dmRate += 5;
           upgradeNumber = state.upgrades.dmRate / 5;
           break;
         }
-    
+
         default: {
           state.upgrades.speed++;
           upgradeNumber = state.upgrades.speed;
@@ -339,16 +351,15 @@ export class GameStateService {
         }
       }
 
-      state.stars -= 500 + (250 * upgradeNumber);
-      state.stars -= 500 + (250 * upgradeNumber);
+      state.stars = result.stars;
 
       if (state.lastSavedState) {
         state.lastSavedState.upgrades = state.upgrades;
         state.lastSavedState.stars -= state.stars;
       }
 
-      this.gameState.next(state);   
-    } 
+      this.gameState.next(state);
+    }
 
     alert(result.message);
   }
@@ -363,7 +374,7 @@ export class GameStateService {
     return this.store.updateCurentState(this.gameState.getValue());
   }
 
-  private objectToArray(object: Object) {
+  private objectToArray(object: object) {
     const array = [];
 
     Object.entries(object).forEach(([key, val]) => {
@@ -379,7 +390,7 @@ export class GameStateService {
 
     if (state.pickaxes) {
       pickaxes.forEach(pickaxe => {
-        
+
         for (var i = 0, n = state.pickaxes.length; i < n; i++) {
           if (state.pickaxes[i] === pickaxe.id) {
             pickaxe.owned = true;

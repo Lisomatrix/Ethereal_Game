@@ -16,19 +16,19 @@ import { Pickaxe } from "src/models/Pickaxe";
   styleUrls: ["./item-shop.component.scss"]
 })
 export class ItemShopComponent implements OnInit {
-  private price: number;
-  private image: string;
-  private id: number;
-  private owned: boolean;
+  price: number;
+  image: string;
+  id: number;
+  owned: boolean;
 
-  @Input("pickaxe")
-  private pickaxe: IPickaxe;
+  @Input()
+  pickaxe: IPickaxe;
 
   constructor(
     private storeService: StoreService,
     private pickaxeService: PickaxeService,
     private stateService: GameStateService
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (!this.pickaxe) {
@@ -47,7 +47,9 @@ export class ItemShopComponent implements OnInit {
   }
 
   buy(isStars: boolean) {
-    if (!this.pickaxe) return;
+    if (!this.pickaxe) {
+      return;
+    }
 
     if (this.pickaxe.owned) {
       if (this.pickaxe) {

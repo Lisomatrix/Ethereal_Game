@@ -10,28 +10,32 @@ import { StoreService } from "../store.service";
   styleUrls: ["./sidebar.component.scss"]
 })
 export class SidebarComponent implements OnInit {
-  private isSideBarOpen = true;
+  isSideBarOpen = true;
 
-  private level = 0;
-  private progressLevel = this.sanitizer.bypassSecurityTrustStyle(
+  level = 0;
+  progressLevel = this.sanitizer.bypassSecurityTrustStyle(
     "width: 100%;"
   );
-  private darkMatter = 0;
-  private stars = 0;
+  darkMatter = 0;
+  stars = 0;
 
-  private iron = 0;
-  private gold = 0;
-  private ruby = 0;
+  iron = 0;
+  gold = 0;
+  ruby = 0;
 
-  private emerald = 0;
-  private saphire = 0;
-  private diamond = 0;
+  emerald = 0;
+  saphire = 0;
+  diamond = 0;
 
-  private stage = 0;
-  private clicks = 0;
+  stage = 0;
+  clicks = 0;
 
-  private pickaxeName = "";
-  private damage = 0;
+  clickSpeed = 0.0;
+  dmRate = 0;
+  dropChance = 0;
+
+  pickaxeName = "";
+  damage = 0;
 
   private upgrades: Upgrade;
   private currentPickaxe: IPickaxe;
@@ -51,7 +55,7 @@ export class SidebarComponent implements OnInit {
         } else {
           this.damage = currentPickaxe.constantDmg;
         }
-        
+
         this.pickaxeName = currentPickaxe.name;
       }
     });
@@ -73,12 +77,17 @@ export class SidebarComponent implements OnInit {
 
       if (this.currentPickaxe && this.upgrades) {
         this.damage = this.currentPickaxe.constantDmg + this.upgrades.attack;
+        this.clickSpeed = this.currentPickaxe.clickSpeed - (0.10 * state.upgrades.speed);
+        this.dmRate = state.upgrades.dmRate;
+        this.dropChance = (state.stage * 0.1) + this.upgrades.dropChance;
       } else if (this.upgrades) {
         this.damage = this.upgrades.attack;
+        this.clickSpeed = this.currentPickaxe.clickSpeed;
+        this.dropChance = (state.stage * 0.1);
       } else {
         this.damage = 0;
       }
-      
+
       if (state.lastSavedState) {
         this.stars = state.lastSavedState.stars;
       } else {

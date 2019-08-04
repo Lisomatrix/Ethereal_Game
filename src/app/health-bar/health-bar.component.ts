@@ -9,18 +9,18 @@ import { GameStateService } from '../game-state.service';
 })
 export class HealthBarComponent implements OnInit {
 
-  private sidebarIsOpen = true;
-  private leftDistance = this.sanitizer.bypassSecurityTrustStyle('left: calc(50% + 50px);');
-  private redPercentage = this.sanitizer.bypassSecurityTrustStyle('width: 100%');
+  sidebarIsOpen = true;
+  leftDistance = this.sanitizer.bypassSecurityTrustStyle('left: calc(50% + 50px);');
+  redPercentage = this.sanitizer.bypassSecurityTrustStyle('width: 100%');
 
-  private maxHP = 0;
-  private currentHP = 0;
+  maxHP = 0;
+  currentHP = 0;
 
   constructor(private sanitizer: DomSanitizer, private gameStateService: GameStateService) { }
 
   ngOnInit() {
     window.addEventListener('sidebar', (event: CustomEvent<any>) => {
-      
+
       this.sidebarIsOpen = event.detail;
 
       if (this.sidebarIsOpen) {

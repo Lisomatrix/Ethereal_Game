@@ -40,8 +40,8 @@ export class DiscordOAuth2Service {
     }
 
     const token = localStorage.getItem('discord-token');
-
-    return this.http.get('http://localhost:3000/me?token=' + token, {
+    
+    return this.http.get('https://astro-clicker.herokuapp.com/me?token=' + token, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
       })
@@ -68,7 +68,7 @@ export class DiscordOAuth2Service {
   public revokeToken() {
     const token = localStorage.getItem('discord-token');
 
-    return this.http.get('http://localhost:3000/revoke?token=' + token, {
+    return this.http.get('https://astro-clicker.herokuapp.com/revoke?token=' + token, {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         // 'Authorization': 'Bearer ' + localStorage.getItem('discord-token')

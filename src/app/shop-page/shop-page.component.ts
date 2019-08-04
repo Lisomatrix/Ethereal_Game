@@ -15,19 +15,19 @@ export class ShopPageComponent implements OnInit {
   @ViewChild('stats', { static: true })
   private statsList: ElementRef<HTMLDivElement>;
 
-  private pickaxes = new Array<IPickaxe>();
+  pickaxes = new Array<IPickaxe>();
 
-  private isTab1Open = true;
-  private shopOpen = false;
+  isTab1Open = true;
+  shopOpen = false;
 
-  private attackPrice = 500;
-  private speedPrice = 500;
-  private dropChancePrice = 500;
-  private dmRatePrice = 500;
+  attackPrice = 250;
+  speedPrice = 250;
+  dropChancePrice = 250;
+  dmRatePrice = 250;
 
-  private canReset = false;
+  canReset = false;
 
-  private showPopup = false;
+  showPopup = false;
 
   constructor(private storeService: StoreService, private gameStateService: GameStateService) {
     this.gameStateService.getPickaxes().subscribe(newPickaxes => {
@@ -36,10 +36,10 @@ export class ShopPageComponent implements OnInit {
 
     this.gameStateService.getState().subscribe(state => {
       if (state && state.upgrades) {
-        this.attackPrice = 500 + (state.upgrades.attack * 250);
-        this.dmRatePrice = 500 + ((state.upgrades.dmRate / 5) * 250);
-        this.dropChancePrice = 500 + ((state.upgrades.dropChance * 4) * 250);
-        this.speedPrice = 500 + (state.upgrades.speed * 250);
+        this.attackPrice = 250 + (state.upgrades.attack * 250);
+        this.dmRatePrice = 250 + ((state.upgrades.dmRate / 5) * 250);
+        this.dropChancePrice = 250 + ((state.upgrades.dropChance * 4) * 250);
+        this.speedPrice = 250 + (state.upgrades.speed * 250);
 
         this.canReset = state.stage >= 20;
       }
@@ -54,7 +54,7 @@ export class ShopPageComponent implements OnInit {
     this.showPopup = !this.showPopup;
   }
 
-  private shopClicked() {
+  shopClicked() {
     this.shopOpen = !this.shopOpen;
   }
 
@@ -63,7 +63,7 @@ export class ShopPageComponent implements OnInit {
     this.showPopup = !this.showPopup;
   }
 
-  private changeTab() {
+  changeTab() {
     this.isTab1Open = !this.isTab1Open;
 
     if (this.isTab1Open) {
@@ -85,7 +85,7 @@ export class ShopPageComponent implements OnInit {
       stars = state.lastSavedState.stars;
     }
 
-    let cost = 500;
+    let cost = 250;
 
     switch (upgrade) {
       case 'attack': {
